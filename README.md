@@ -1,6 +1,6 @@
 # PINCHTextRendering
 
-[![CI Status](http://img.shields.io/travis/justpinch/PINCHTextRendering.svg?style=flat)](https://travis-ci.org/Pim Coumans/PINCHTextRendering)
+[![CI Status](http://img.shields.io/travis/justpinch/PINCHTextRendering.svg?style=flat)](https://travis-ci.org/justpinch/PINCHTextRendering)
 [![Version](https://img.shields.io/cocoapods/v/PINCHTextRendering.svg?style=flat)](http://cocoadocs.org/docsets/PINCHTextRendering)
 [![License](https://img.shields.io/cocoapods/l/PINCHTextRendering.svg?style=flat)](http://cocoadocs.org/docsets/PINCHTextRendering)
 [![Platform](https://img.shields.io/cocoapods/p/PINCHTextRendering.svg?style=flat)](http://cocoadocs.org/docsets/PINCHTextRendering)
