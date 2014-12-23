@@ -27,7 +27,7 @@
 // PINCHTextRendering
 #define COCOAPODS_POD_AVAILABLE_PINCHTextRendering
 #define COCOAPODS_VERSION_MAJOR_PINCHTextRendering 0
-#define COCOAPODS_VERSION_MINOR_PINCHTextRendering 1
+#define COCOAPODS_VERSION_MINOR_PINCHTextRendering 5
 #define COCOAPODS_VERSION_PATCH_PINCHTextRendering 0
 
 // Specta

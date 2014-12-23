@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## PINCHTextRendering
 
-Copyright (c) 2014 Pim Coumans <pim.coumans@justpinch.com>
+Copyright (c) 2014 PINCH B.V.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

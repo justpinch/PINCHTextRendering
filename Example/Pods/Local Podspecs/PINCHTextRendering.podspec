@@ -9,30 +9,29 @@
 
 Pod::Spec.new do |s|
   s.name             = "PINCHTextRendering"
-  s.version          = "0.1.0"
-  s.summary          = "A short description of PINCHTextRendering."
+  s.version          = "0.5.0"
+  s.summary          = "CoreText abstraction layer inspired by TextKit."
   s.description      = <<-DESC
-                       An optional longer description of PINCHTextRendering
+                       PINCHTextRendering is a convenience library for rendering
+                       a stack of strings (layout objects) each with its own style.
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       Key features
+                        * Wrapping around a clipping rect
+                        * Layout object instantiatable with an NSAttributedString
+                        * Works with rendering directly of from provided textView
+                        * Extra style like thick underline with descender clipping
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/PINCHTextRendering"
+  s.homepage         = "https://github.com/justpinch/PINCHTextRendering"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Pim Coumans" => "pim.coumans@justpinch.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/PINCHTextRendering.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/justpinch/PINCHTextRendering.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '6.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes'
-  s.resource_bundles = {
-    'PINCHTextRendering' => ['Pod/Assets/*.png']
-  }
+  s.source_files = 'PINCHTextRendering'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.public_header_files = 'PINCHTextRendering/**/*.h'
+  s.frameworks = 'UIKit', 'CoreText'
 end
