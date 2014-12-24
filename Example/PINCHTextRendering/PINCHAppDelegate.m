@@ -3,7 +3,7 @@
 //  PINCHTextRendering
 //
 //  Created by CocoaPods on 12/23/2014.
-//  Copyright (c) 2014 Pim Coumans. All rights reserved.
+//  Copyright (c) 2014 PINCH B.V. All rights reserved.
 //
 
 #import "PINCHAppDelegate.h"
