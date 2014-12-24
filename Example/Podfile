@@ -7,8 +7,7 @@ end
 target 'Tests', :exclusive => true do
   pod "PINCHTextRendering", :path => "../"
 
-  pod 'Specta', '~> 0.2.1'
+  pod 'Specta'
   pod 'Expecta'
-  pod 'FBSnapshotTestCase'
-  pod 'Expecta+Snapshots'
+  pod 'Expecta+Snapshots', :git => 'https://github.com/dblock/ios-snapshot-test-case-expecta.git'
 end
