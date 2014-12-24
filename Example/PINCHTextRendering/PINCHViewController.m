@@ -7,6 +7,7 @@
 //
 
 #import "PINCHViewController.h"
+#import "PINCHTextClippingView.h"
 
 @interface PINCHViewController ()
 
@@ -17,7 +18,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
+	PINCHTextClippingView *view = [[PINCHTextClippingView alloc] initWithFrame:UIEdgeInsetsInsetRect(self.view.bounds, UIEdgeInsetsMake(20, 0, 0, 0))];
+	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	[self.view addSubview:view];
 }
 
 - (void)didReceiveMemoryWarning
