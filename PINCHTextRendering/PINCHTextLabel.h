@@ -9,8 +9,7 @@
 #import "PINCHTextView.h"
 
 /**
- Subclass of PINCHTextView that works like UILabel,
- in that is accepts an attributed string and implements
+ Subclass of PINCHTextView that works like UILabel, in that it accepts an attributed string and implements
  the sizeThatFits: and sizeToFit logic.
  */
 @class PINCHTextLayout;

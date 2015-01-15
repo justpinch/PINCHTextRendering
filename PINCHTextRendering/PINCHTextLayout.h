@@ -64,8 +64,8 @@ extern NSString *const PINCHTextLayoutTextCheckingResultAttribute;
 @class PINCHTextRenderer;
 
 /**
- Data object responsible for holding an attributed string and calculate its height. Used with PINCHTextRenderer to render
- attributed string underneath eachother.
+ Data object responsible for holding an attributed string, calculating its height and rendering it in a given context.
+ Use with the PINCHTextRenderer class to render multiple attributed strings underneath eachother.
  */
 @interface PINCHTextLayout : NSObject
 {
@@ -84,19 +84,22 @@ extern NSString *const PINCHTextLayoutTextCheckingResultAttribute;
 /**
  Designated initializer. Creates an PINCHTextLayout instance with a string, attributes and a name
  @param string The string of the textLayout, may not be nil
- @param attributes Don't use NSAttributedString attributes but the attributes declared in PINCHTextLayout.h
+ @param attributes All attributes as defined in PINCHTextLayout.h, like PINCHTextLayoutFontAttribute and
+ PINCHTextLayoutTextColorAttribute
  @param name The name of the textLayout so it can be found via the textRenderer (textLayoutWithName:). Can be nil
+ @note The keys and values should be as defined in PINCHTextLayout.h, which are not the same as regular
+ NSAttributedString attributes
  */
 - (instancetype)initWithString:(NSString *)string attributes:(NSDictionary *)attributes name:(NSString *)name;
 
 /**
- For compatibility reasons, this method is added so common attributed strings can be used to render
+ For compatibility and convenience reasons, this method is added so common attributed strings can be used to render
  in PINCHTextRenderer. While most attributes are supported, some paragraphStyle properties may be overwritten.
  MinimumLineHeight for instance will always be equal to maximumLineHeight.
- Attributes that don't cover the whole string are not supported. All the attributes accessible in the
+ Attributes that don't cover the whole string are not supported, all the attributes accessible in the
  properties of each PINCHTextLayout object are retrieved from the first character.
  @note The attributed string used for initializing will not be the same as the one accessible via the
- attributedString property. All properties are used to create a new mutable attributed string.
+ attributedString property. All properties are used to create a new (mutable) attributed string.
  @param attributedString The attributed string of which the attributes will be used to create the
  PINCHTextLayout
  @param name The name of the textLayout so it can be found via the textRenderer (textLayoutWithName:). May be nil

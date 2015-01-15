@@ -12,7 +12,9 @@
 @protocol PINCHTextRendererDelegate;
 
 /**
- Abstract class responsible for rendering textLayout objects. Doens't save or cache any states.
+ The textRenderer is responsible for rendering multiple layout objects. This class is typically used
+ to render instances of PINCHTextLayout objects. While layout objects can be drawn without this class,
+ usage of the textRenderer has the benefits of copious delegate calls.
  */
 @interface PINCHTextRenderer : NSObject
 

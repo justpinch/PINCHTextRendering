@@ -71,7 +71,7 @@ describe(@"Rending of layouts", ^{
 		// Doesn't work with UIImage: expect(resultImage).to.recordSnapshotNamed(@"PINCHRenderExample");
 	});
 	
-	it(@"Does hyphenation", ^{
+	it(@"does hyphenation", ^{
 		// Considering the positions, the usage of softhyphens should result in 4 lines. This test will succeed if 4 lines have been rendered
 		// To check whether actual hyphens have been rendered, set a breakpoint after the image is created and Quick Look the resultImage variable
 		unichar softHyphen = (unichar)0xad;
@@ -93,6 +93,17 @@ describe(@"Rending of layouts", ^{
 		
 		/// Set a breakPoint here to Quick Look the resultImage
 		expect(@(layout.actualNumberOfLines)).to.equal(@4);
+	});
+	
+});
+
+describe(@"Parsing of strings", ^{
+	
+	it(@"Parses URLS", ^{
+		NSString *markdownString = @"This is an [URL](http://www.justpinch.com/) which should be underlined";
+		NSString *expectedParsedString = @"This is an URL which should be underlined";
+		PINCHTextLayout *layout = [[PINCHTextLayout alloc] initWithString:markdownString attributes:nil name:nil];
+		expect([layout.attributedString string]).to.equal(expectedParsedString);
 	});
 	
 });
