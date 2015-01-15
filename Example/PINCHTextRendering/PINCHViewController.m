@@ -8,6 +8,7 @@
 
 #import "PINCHViewController.h"
 #import "PINCHTextClippingView.h"
+#import <PINCHTextRendering/PINCHTextRendering.h>
 
 @interface PINCHViewController ()
 

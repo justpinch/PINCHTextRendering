@@ -26,18 +26,6 @@ static const unichar softHypen = 0x00AD;
 		// Initialization code
 		self.backgroundColor = [UIColor whiteColor];
 		
-		
-		PINCHTextLayout *layout = [[PINCHTextLayout alloc] initWithString:@"Hello world!"
-															   attributes:@{PINCHTextLayoutFontAttribute: [UIFont systemFontOfSize:17]}
-																	 name:@"hello"];
-		PINCHTextView *textView = [[PINCHTextView alloc] initWithFrame:self.view.bounds
-														   textLayouts:@[layout]];
-		[self.view addSubview:textView];
-		
-		PINCHTextRenderer *renderer = [[PINCHTextRenderer alloc] init];
-		renderer.textLayouts = @[layout];
-		[renderer renderTextLayoutsInContext:context withRect:rect];
-		
 		UIEdgeInsets defaultInsets = UIEdgeInsetsMake(0, 10, 10, 10);
 		
 		// Creating the tile
