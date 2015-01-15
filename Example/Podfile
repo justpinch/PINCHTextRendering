@@ -5,7 +5,7 @@ target 'PINCHTextRendering', :exclusive => true do
 end
 
 target 'Tests', :exclusive => true do
-  pod "PINCHTextRendering", :path => "../"
+#  pod "PINCHTextRendering", :path => "../"
 
   pod 'Specta'
   pod 'Expecta'

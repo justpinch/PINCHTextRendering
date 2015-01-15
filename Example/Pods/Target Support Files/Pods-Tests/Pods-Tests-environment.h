@@ -24,12 +24,6 @@
 #define COCOAPODS_VERSION_MINOR_FBSnapshotTestCase 4
 #define COCOAPODS_VERSION_PATCH_FBSnapshotTestCase 0
 
-// PINCHTextRendering
-#define COCOAPODS_POD_AVAILABLE_PINCHTextRendering
-#define COCOAPODS_VERSION_MAJOR_PINCHTextRendering 0
-#define COCOAPODS_VERSION_MINOR_PINCHTextRendering 5
-#define COCOAPODS_VERSION_PATCH_PINCHTextRendering 0
-
 // Specta
 #define COCOAPODS_POD_AVAILABLE_Specta
 #define COCOAPODS_VERSION_MAJOR_Specta 0
