@@ -72,7 +72,8 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
     self = [super initWithFrame:frame];
     if (self)
 	{
-        // Initialization code
+		self.backgroundColor = [UIColor clearColor];
+		
 		self.renderer = [[PINCHTextRenderer alloc] init];
 		self.renderer.delegate = self;
 		self.contentMode = UIViewContentModeRedraw;
