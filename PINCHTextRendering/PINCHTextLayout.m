@@ -1210,7 +1210,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 						CGContextClipToMask(context, bounds, clippingMask);
 						
 						// Draw rect for the underline
-						CGRect textRect = CGRectMake(textPoint.x, textPoint.y - underlinePosition - (underlineThickness * 1.5f), (CGFloat)width, underlineThickness * 2.0);
+						CGRect textRect = CGRectMake(textPoint.x, textPoint.y - underlinePosition - (underlineThickness * 2), (CGFloat)width, underlineThickness * 2.0);
 						CGContextSetFillColorWithColor(context, textColor.CGColor);
 						CGContextFillRect(context, textRect);
 						
