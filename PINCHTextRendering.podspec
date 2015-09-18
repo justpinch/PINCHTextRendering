@@ -9,13 +9,14 @@
 
 Pod::Spec.new do |s|
   s.name             = "PINCHTextRendering"
-  s.version          = "0.5.0"
+  s.version          = "0.5.1"
   s.summary          = "CoreText abstraction layer inspired by TextKit."
   s.description      = <<-DESC
-                       PINCHTextRendering is a convenience library for rendering
-                       a stack of strings (layout objects) each with its own style.
+                       PINCHTextRendering is a convenience library leveraging
+                       Core Text for rendering a stack of strings (layout objects)
+                       each with its own style.
 
-                       Key features
+                       Key features:
                         * Wrapping around a clipping rect
                         * Layout object instantiatable with an NSAttributedString
                         * Works with rendering directly of from provided textView
