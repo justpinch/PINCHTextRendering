@@ -965,7 +965,13 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 		CTFramesetterRef framesetter = self.framesetter;
 		CFRange range = CFRangeMake(0, (CFIndex)self.attributedString.length);
 		
-		BOOL checkForURLs = [self.textRenderer textLayoutShouldCheckForURLS:self];;
+		BOOL checkForURLs = [self.textRenderer textLayoutShouldCheckForURLS:self];
+		BOOL fixUnderlinePosition = false;
+		if ([[NSProcessInfo processInfo] respondsToSelector:@selector(operatingSystemVersion)] &&
+			[NSProcessInfo processInfo].operatingSystemVersion.majorVersion >= 9)
+		{
+			fixUnderlinePosition = true;
+		}
 		
 		// Save the context state bofore the transforms
 		CGContextSaveGState(context);
@@ -1185,6 +1191,13 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 						CGFloat trailingSpaceWidth = CTLineGetTrailingWhitespaceWidth(line);
 						width -= trailingSpaceWidth;
 						
+						if (fixUnderlinePosition)
+						{
+							// Since iOS 9, positions of underlines in Core Text are slightly shifted
+							// It appears the underlineThickness should be defined in the other direction
+							underlinePosition += underlineThickness;
+						}
+						
 						// Create a new context for clipping
 						// TODO: create a clipping mask for all lines at once so a new context image doesn't
 						// need to be created for every line. This will improve performance drastically
@@ -1210,7 +1223,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 						CGContextClipToMask(context, bounds, clippingMask);
 						
 						// Draw rect for the underline
-						CGRect textRect = CGRectMake(textPoint.x, textPoint.y - underlinePosition - (underlineThickness * 2), (CGFloat)width, underlineThickness * 2.0);
+						CGRect textRect = CGRectMake(textPoint.x, textPoint.y - underlinePosition - (underlineThickness * 1.5), (CGFloat)width, underlineThickness * 2.0);
 						CGContextSetFillColorWithColor(context, textColor.CGColor);
 						CGContextFillRect(context, textRect);
 						
