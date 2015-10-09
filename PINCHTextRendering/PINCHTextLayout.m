@@ -1119,11 +1119,14 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 					}
 					
 					// Update the lineRect of the textLayout
-					NSMutableArray *lineRects = [self.lineRects mutableCopy];
-					CGRect lastLineRect = [[lineRects lastObject] CGRectValue];
-					lastLineRect.size.width = CGRectGetWidth(CTLineGetBoundsWithOptions(line, 0)) - CTLineGetTrailingWhitespaceWidth(line);
-					[lineRects replaceObjectAtIndex:[lineRects count] - 1 withObject:[NSValue valueWithCGRect:lastLineRect]];
-					self.lineRects = lineRects;
+					if ([self.lineRects count] > 0)
+					{
+						NSMutableArray *lineRects = [self.lineRects mutableCopy];
+						CGRect lastLineRect = [[lineRects lastObject] CGRectValue];
+						lastLineRect.size.width = CGRectGetWidth(CTLineGetBoundsWithOptions(line, 0)) - CTLineGetTrailingWhitespaceWidth(line);
+						[lineRects replaceObjectAtIndex:[lineRects count] - 1 withObject:[NSValue valueWithCGRect:lastLineRect]];
+						self.lineRects = lineRects;
+					}
 				}
 				else if (self.hyphenated && lastChar == softHypen && lineRange.length > 0)
 				{
