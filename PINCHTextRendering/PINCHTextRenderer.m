@@ -409,7 +409,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 
 @implementation PINCHTextRenderer (PINCHTextLayoutAdditions)
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 - (void)notifyTextCheckingResultsFromTextLayout:(PINCHTextLayout *)textLayout withDataDetectorTypes:(UIDataDetectorTypes)dataDetectorTypes
 {
 	if ([self.delegate respondsToSelector:@selector(textRenderer:textLayout:didParseDataDetectorTypes:)])

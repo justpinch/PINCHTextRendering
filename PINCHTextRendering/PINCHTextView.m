@@ -243,7 +243,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	}
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 - (void)textRenderer:(PINCHTextRenderer *)textRenderer textLayout:(PINCHTextLayout *)textLayout didParseDataDetectorTypes:(UIDataDetectorTypes)dataDetectorTypes
 {
 	[self setNeedsDisplay];

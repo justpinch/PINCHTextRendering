@@ -205,7 +205,7 @@
  */
 - (void)textRenderer:(PINCHTextRenderer *)textRenderer didEncounterTextCheckingResult:(NSTextCheckingResult *)result inRange:(NSRange)range withRect:(CGRect)rect;
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 /**
  When created on the main thread, a textLayout instance handles the dataDetectors on a different thread.
  This means the parsing can complete after the text has rendered. Implement this delegate to update

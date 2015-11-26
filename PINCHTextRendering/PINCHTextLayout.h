@@ -175,7 +175,7 @@ extern NSString *const PINCHTextLayoutTextCheckingResultAttribute;
 /// unless the wrapped segment is smaller than 5 characters to prevent weird misplaced clipping behavior
 @property (nonatomic, assign) BOOL prefersNonWrappedWords;
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 /// Which dataTypes to detect and be underlined. These can be made tappable in the view this layout is drawn in
 @property (nonatomic, assign) UIDataDetectorTypes dataDetectorTypes;
 #endif

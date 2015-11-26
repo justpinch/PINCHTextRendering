@@ -62,7 +62,7 @@ inline CFDictionaryRef PINCHFrameAttributesCreateWithClippingRect(CGRect clippin
 	return options;
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 static NSTextCheckingType PINCHTextCheckingTypeFromUIDataDetectorType(UIDataDetectorTypes dataDetectorType);
 static NSTextCheckingType PINCHTextCheckingTypeFromUIDataDetectorType(UIDataDetectorTypes dataDetectorType) {
     NSTextCheckingType textCheckingType = 0;
@@ -112,7 +112,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 
 @interface PINCHTextRenderer (PINCHTextLayoutAdditions)
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 /// Added as form of secret protocol between textRenderer and textLayout.
 /// TextLayouts don't have a delegate but this method is needed for
 /// asynchronous purposes.
@@ -277,7 +277,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 	
 	[self parseMarkdown];
 	
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 	if (_dataDetectorTypes != UIDataDetectorTypeNone)
 	{
 		[self applyDataDetectorTypes];
@@ -520,7 +520,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 
 #pragma mark - Data detection
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 - (void)setDataDetectorTypes:(UIDataDetectorTypes)dataDetectorTypes
 {
 	if (dataDetectorTypes == _dataDetectorTypes)
