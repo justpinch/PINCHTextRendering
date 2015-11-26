@@ -62,6 +62,7 @@ inline CFDictionaryRef PINCHFrameAttributesCreateWithClippingRect(CGRect clippin
 	return options;
 }
 
+#if TARGET_OS_IPHONE
 static NSTextCheckingType PINCHTextCheckingTypeFromUIDataDetectorType(UIDataDetectorTypes dataDetectorType);
 static NSTextCheckingType PINCHTextCheckingTypeFromUIDataDetectorType(UIDataDetectorTypes dataDetectorType) {
     NSTextCheckingType textCheckingType = 0;
@@ -87,6 +88,7 @@ static NSTextCheckingType PINCHTextCheckingTypeFromUIDataDetectorType(UIDataDete
     
     return textCheckingType;
 }
+#endif
 
 NSString *const PINCHTextLayoutFontAttribute = @"font";
 NSString *const PINCHTextLayoutTextColorAttribute = @"textColor";
@@ -110,10 +112,12 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 
 @interface PINCHTextRenderer (PINCHTextLayoutAdditions)
 
+#if TARGET_OS_IPHONE
 /// Added as form of secret protocol between textRenderer and textLayout.
 /// TextLayouts don't have a delegate but this method is needed for
 /// asynchronous purposes.
 - (void)notifyTextCheckingResultsFromTextLayout:(PINCHTextLayout *)textLayout withDataDetectorTypes:(UIDataDetectorTypes)dataDetectorTypes;
+#endif
 
 - (BOOL)textLayoutShouldDebugClipping:(PINCHTextLayout *)textLayout;
 - (void)textLayoutWillRender:(PINCHTextLayout *)textLayout inRect:(CGRect)rect withContext:(CGContextRef)context;
@@ -273,10 +277,12 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 	
 	[self parseMarkdown];
 	
+#if TARGET_OS_IPHONE
 	if (_dataDetectorTypes != UIDataDetectorTypeNone)
 	{
 		[self applyDataDetectorTypes];
 	}
+#endif
 	
 	// Begin at reset state
 	[self invalidateLayoutCache];
@@ -514,6 +520,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 
 #pragma mark - Data detection
 
+#if TARGET_OS_IPHONE
 - (void)setDataDetectorTypes:(UIDataDetectorTypes)dataDetectorTypes
 {
 	if (dataDetectorTypes == _dataDetectorTypes)
@@ -586,6 +593,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 		[self.textRenderer notifyTextCheckingResultsFromTextLayout:self withDataDetectorTypes:self.dataDetectorTypes];
 	}
 }
+#endif
 
 - (void)parseMarkdown
 {

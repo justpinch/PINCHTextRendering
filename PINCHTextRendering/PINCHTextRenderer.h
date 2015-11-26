@@ -205,6 +205,7 @@
  */
 - (void)textRenderer:(PINCHTextRenderer *)textRenderer didEncounterTextCheckingResult:(NSTextCheckingResult *)result inRange:(NSRange)range withRect:(CGRect)rect;
 
+#if TARGET_OS_IPHONE
 /**
  When created on the main thread, a textLayout instance handles the dataDetectors on a different thread.
  This means the parsing can complete after the text has rendered. Implement this delegate to update
@@ -214,5 +215,6 @@
  @param dataDetectorTypes Which dataDetectorTypes have been parsed.
  */
 - (void)textRenderer:(PINCHTextRenderer *)textRenderer textLayout:(PINCHTextLayout *)textLayout didParseDataDetectorTypes:(UIDataDetectorTypes)dataDetectorTypes;
+#endif
 
 @end

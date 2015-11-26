@@ -50,7 +50,7 @@ extern NSString *const PINCHTextLayoutLastLineInsetAttribute;
 extern NSString *const PINCHTextLayoutUnderlinedAttribute;
 /// Expects an NSNumber BOOL value
 extern NSString *const PINCHTextLayoutPrefersNonWrappedWords;
-/// Not available yes, expects an NSNumber UIDataDetectorTypes value (unsigned integer)
+/// Not available yet, expects an NSNumber UIDataDetectorTypes value (unsigned integer)
 extern NSString *const PINCHTextLayoutTextCheckingResultAttribute;
 
 /**
@@ -175,8 +175,10 @@ extern NSString *const PINCHTextLayoutTextCheckingResultAttribute;
 /// unless the wrapped segment is smaller than 5 characters to prevent weird misplaced clipping behavior
 @property (nonatomic, assign) BOOL prefersNonWrappedWords;
 
+#if TARGET_OS_IPHONE
 /// Which dataTypes to detect and be underlined. These can be made tappable in the view this layout is drawn in
 @property (nonatomic, assign) UIDataDetectorTypes dataDetectorTypes;
+#endif
 
 /// The NSValue-wrapped CGRect values of all line rects after size calculation.
 /// The textRenderer may change these values while rendering to accommodate for extra elements

@@ -243,10 +243,12 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	}
 }
 
+#if TARGET_OS_IPHONE
 - (void)textRenderer:(PINCHTextRenderer *)textRenderer textLayout:(PINCHTextLayout *)textLayout didParseDataDetectorTypes:(UIDataDetectorTypes)dataDetectorTypes
 {
 	[self setNeedsDisplay];
 }
+#endif
 
 #pragma mark - Tapping links
 

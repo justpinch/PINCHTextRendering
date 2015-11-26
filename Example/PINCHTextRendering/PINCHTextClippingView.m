@@ -64,7 +64,9 @@ static const unichar softHypen = 0x00AD;
 		PINCHTextLayout *restrictedLayout = [[PINCHTextLayout alloc] initWithString:hypenatedText attributes:attributes name:@"restricted"];
 		restrictedLayout.minimumScaleFactor = 0.2;
 		restrictedLayout.maximumNumberOfLines = 3;
+#if TARGET_OS_IPHONE
 		restrictedLayout.dataDetectorTypes = UIDataDetectorTypeLink;
+#endif
 		
 		self.textView = [[PINCHTextView alloc] initWithFrame:self.bounds textLayouts:@[titleLayout, descriptionLayout, hypenatedLayout, restrictedLayout]];
 		self.textView.backgroundColor = [UIColor clearColor];
