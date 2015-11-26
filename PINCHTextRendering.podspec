@@ -28,7 +28,9 @@ Pod::Spec.new do |s|
   s.author           = { "Pim Coumans" => "pim.coumans@justpinch.com" }
   s.source           = { :git => "https://github.com/justpinch/PINCHTextRendering.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '6.0'
+  s.ios.deployment_target = '6.0'
+  s.tvos.deployment_target = '9.0'
+
   s.requires_arc = true
 
   s.source_files = 'PINCHTextRendering'
