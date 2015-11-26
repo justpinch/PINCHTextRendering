@@ -193,7 +193,9 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 		_lastLineInset = [[attributes objectForKey:PINCHTextLayoutLastLineInsetAttribute] doubleValue];
 		_underlined = [[attributes objectForKey:PINCHTextLayoutUnderlinedAttribute] boolValue];
 		_prefersNonWrappedWords = [[attributes objectForKey:PINCHTextLayoutPrefersNonWrappedWords] boolValue];
+#if TARGET_OS_IOS
 		_dataDetectorTypes = [[attributes objectForKey:PINCHTextLayoutDataDetectorTypesAttribute] unsignedIntegerValue];
+#endif
 		
 		[self applyDefaultValuesWithString:string];
     }
