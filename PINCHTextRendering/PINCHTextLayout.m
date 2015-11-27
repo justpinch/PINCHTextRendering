@@ -803,20 +803,29 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 					{
 						cappedString = YES;
 					}
-					// Two (or more) lines exist when lines are clipped in the middle
-					// Search actual last line
-					CGFloat actualLastLineOffest = CGRectGetMinY(frameBounds) + (lineHeight * maximumNumberOfLines);
-					CGFloat halfLineHeight = round(lineHeight / 2.0f);
-					actualLastLineOffest = roundf(actualLastLineOffest / halfLineHeight) * halfLineHeight;
-					for (CFIndex lineIndex = actualNumberOfLines - 1; lineIndex >= 0; lineIndex --)
+					
+					if (!CGRectIsEmpty(*clippingRect))
 					{
-						CGFloat searchLineOriginY = roundf(origins[lineIndex].y / halfLineHeight) * halfLineHeight;
-						if (searchLineOriginY == actualLastLineOffest)
+						// Two (or more) lines exist when lines are clipped in the middle
+						// Search actual last line
+						CGFloat actualLastLineOffest = CGRectGetMinY(frameBounds) + (lineHeight * maximumNumberOfLines);
+						CGFloat halfLineHeight = round(lineHeight / 2.0f);
+						actualLastLineOffest = roundf(actualLastLineOffest / halfLineHeight) * halfLineHeight;
+						for (CFIndex lineIndex = actualNumberOfLines - 1; lineIndex >= 0; lineIndex --)
 						{
-							lastLineIndex = lineIndex;
-							break;
+							CGFloat searchLineOriginY = roundf(origins[lineIndex].y / halfLineHeight) * halfLineHeight;
+							if (searchLineOriginY == actualLastLineOffest)
+							{
+								lastLineIndex = lineIndex;
+								break;
+							}
 						}
 					}
+					else
+					{
+						lastLineIndex = MIN(numberOfLines, maximumNumberOfLines) - 1;
+					}
+					
 					globalLastLineIndex = MIN(lastLineIndex, maximumNumberOfLines - 1);
 				}
 				
