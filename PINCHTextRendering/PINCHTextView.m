@@ -397,8 +397,6 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	if (characterCount == 0)
 		return CGSizeZero;
 	
-	CGSize superSize = [super intrinsicContentSize];
-	
 	CGFloat width = CGRectGetWidth(self.bounds);
 	if (width <= 0)
 	{
