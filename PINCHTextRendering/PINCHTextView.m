@@ -144,6 +144,8 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	{
 		[self.delegate textViewDidUpdateLayoutAttributes:self];
 	}
+	[self invalidateIntrinsicContentSize];
+	[self setNeedsLayout];
 	[self setNeedsDisplay];
 }
 
@@ -378,6 +380,46 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	[self.renderer renderTextLayoutsInContext:context withRect:self.bounds];
+}
+
+#pragma mark - Auto Layout Support
+
+- (CGSize)intrinsicContentSize
+{
+	if (self.renderer.textLayouts.count == 0)
+		return CGSizeZero;
+	
+	__block NSUInteger characterCount = 0;
+	[self.renderer.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *  _Nonnull textLayout, NSUInteger idx, BOOL * _Nonnull stop) {
+		characterCount += textLayout.attributedString.length;
+	}];
+	
+	if (characterCount == 0)
+		return CGSizeZero;
+	
+	CGSize superSize = [super intrinsicContentSize];
+	
+	CGFloat width = CGRectGetWidth(self.bounds);
+	if (width <= 0)
+	{
+		return CGSizeMake(UIViewNoIntrinsicMetric, UIViewNoIntrinsicMetric);
+	}
+	
+	CGSize size = [self sizeThatFits:CGSizeMake(width, 10000)];
+	size.height = ceilf(size.height) + 1;
+	return size;
+}
+
+- (UILayoutPriority)contentHuggingPriorityForAxis:(UILayoutConstraintAxis)axis
+{
+	if (axis == UILayoutConstraintAxisHorizontal)
+	{
+		return UILayoutPriorityDefaultLow;
+	}
+	else
+	{
+		return UILayoutPriorityDefaultHigh;
+	}
 }
 
 @end
