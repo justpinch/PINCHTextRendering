@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "PINCHTextRendering"
-  s.version          = "0.5.4"
+  s.version          = "0.5.5"
   s.summary          = "CoreText abstraction layer inspired by TextKit."
   s.description      = <<-DESC
                        PINCHTextRendering is a convenience library leveraging
