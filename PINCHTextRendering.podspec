@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "PINCHTextRendering"
-  s.version          = "0.5.5.1"
+  s.version          = "0.5.5.2"
   s.summary          = "CoreText abstraction layer inspired by TextKit."
   s.description      = <<-DESC
                        PINCHTextRendering is a convenience library leveraging
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
                         * Extra style like thick underline with descender clipping
                        DESC
   s.homepage         = "https://github.com/justpinch/PINCHTextRendering"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.screenshots      = "https://raw.githubusercontent.com/justpinch/PINCHTextRendering/master/assets/example-screenshot.png", "https://github.com/justpinch/PINCHTextRendering/raw/master/assets/example-debugging-screenshot.png"
   s.license          = 'MIT'
   s.author           = { "Pim Coumans" => "pim.coumans@justpinch.com" }
   s.source           = { :git => "https://github.com/justpinch/PINCHTextRendering.git", :tag => s.version.to_s }
