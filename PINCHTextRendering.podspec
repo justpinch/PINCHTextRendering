@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "PINCHTextRendering"
-  s.version          = "0.5.5.2"
+  s.version          = "0.5.5.3"
   s.summary          = "CoreText abstraction layer inspired by TextKit."
   s.description      = <<-DESC
                        PINCHTextRendering is a convenience library leveraging
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.author           = { "Pim Coumans" => "pim.coumans@justpinch.com" }
   s.source           = { :git => "https://github.com/justpinch/PINCHTextRendering.git", :tag => s.version.to_s }
 
-  s.ios.deployment_target = '6.0'
+  s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
 
   s.requires_arc = true
