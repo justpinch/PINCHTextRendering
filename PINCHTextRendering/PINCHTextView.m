@@ -101,7 +101,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame textLayouts:(NSArray *)textLayouts
+- (id)initWithFrame:(CGRect)frame textLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
 {
 	self = [self initWithFrame:frame];
 	if (self)
@@ -138,7 +138,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 
 #pragma mark - PINCHTextRenderer delegate methods
 
-- (void)textRenderer:(PINCHTextRenderer *)textRenderer didUpdateTextLayouts:(NSArray *)textLayouts
+- (void)textRenderer:(PINCHTextRenderer *)textRenderer didUpdateTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
 {
 	if ([self.delegate respondsToSelector:@selector(textViewDidUpdateLayoutAttributes:)])
 	{
@@ -155,7 +155,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	{
 		CGContextSaveGState(context);
 		{
-			static NSArray *debugColors = nil;
+			static NSArray<UIColor *> *debugColors = nil;
 			static dispatch_once_t onceToken;
 			dispatch_once(&onceToken, ^{
 				debugColors = @[[UIColor redColor],
@@ -178,7 +178,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	}
 }
 
-- (BOOL)textRenderer:(PINCHTextRenderer *)textRenderer shouldRenderTextLayouts:(NSArray *)textLayouts
+- (BOOL)textRenderer:(PINCHTextRenderer *)textRenderer shouldRenderTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
 {
 	PINCHTextWeakObject(self, weakSelf);
 	void(^beginBlock)(void) = ^ {
@@ -390,7 +390,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 		return CGSizeZero;
 	
 	__block NSUInteger characterCount = 0;
-	[self.renderer.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *  _Nonnull textLayout, NSUInteger idx, BOOL * _Nonnull stop) {
+	[self.renderer.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout * _Nonnull textLayout, NSUInteger idx, BOOL * _Nonnull stop) {
 		characterCount += textLayout.attributedString.length;
 	}];
 	

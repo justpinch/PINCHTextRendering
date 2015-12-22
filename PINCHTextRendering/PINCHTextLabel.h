@@ -9,13 +9,14 @@
 #import "PINCHTextView.h"
 
 /**
- Subclass of PINCHTextView that works like UILabel, in that it accepts an attributed string and implements
- the sizeThatFits: and sizeToFit logic.
+ Subclass of PINCHTextView that works like UILabel, in that it
+ accepts only one attributed string or textLayout and implements
+ the sizeThatFits: and sizeToFit logic for that single layout
  */
 @class PINCHTextLayout;
 @interface PINCHTextLabel : PINCHTextView
 
-- (instancetype)initWithFrame:(CGRect)frame textLayouts:(NSArray *)textLayouts __attribute__((unavailable("use initWithFrame: and setTextLayout: or setAttributedString: like in UILabel")));
+- (instancetype)initWithFrame:(CGRect)frame textLayouts:(NSArray<PINCHTextLayout *> *)textLayouts __attribute__((unavailable("use initWithFrame: and setTextLayout: or setAttributedString: like in UILabel")));
 
 /**
  Sets the drawn textLayout to a new PINCHTextLayout instance

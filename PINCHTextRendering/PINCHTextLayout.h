@@ -182,7 +182,7 @@ extern NSString *const PINCHTextLayoutTextCheckingResultAttribute;
 
 /// The NSValue-wrapped CGRect values of all line rects after size calculation.
 /// The textRenderer may change these values while rendering to accommodate for extra elements
-@property (nonatomic, copy, readonly) NSArray *lineRects;
+@property (nonatomic, copy, readonly) NSArray<NSValue *> *lineRects;
 
 /// Whether the string fits in the proposed rects
 /// Initially set to YES, invalidating does the same. Only NO after calculating and string doens't fit

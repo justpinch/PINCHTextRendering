@@ -22,7 +22,7 @@
  @param textLayouts The PINCHTextLayout instances to set as the layouts for the renderer.
  @return Newly initialized instance of PINCHTextView or nil if failed
  */
-- (id)initWithFrame:(CGRect)frame textLayouts:(NSArray *)textLayouts;
+- (id)initWithFrame:(CGRect)frame textLayouts:(NSArray<PINCHTextLayout *> *)textLayouts;
 
 @property (nonatomic, weak) id <PINCHTextViewDelegate> delegate;
 

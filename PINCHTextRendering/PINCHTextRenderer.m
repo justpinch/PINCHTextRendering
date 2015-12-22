@@ -19,7 +19,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 @interface PINCHTextLayout ()
 
 /// Making lineRects accessibly by textRenderer
-@property (nonatomic, copy, readwrite) NSArray *lineRects;
+@property (nonatomic, copy, readwrite) NSArray<NSValue *> *lineRects;
 /// Making stringFitsProposedRect accessibly by textRenderer
 @property (nonatomic, assign, readwrite) BOOL stringFitsProposedRect;
 
@@ -83,7 +83,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 	}
 }
 
-- (void)setTextLayouts:(NSArray *)textLayouts
+- (void)setTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
 {
 	@synchronized(self.textLayouts)
 	{
@@ -104,7 +104,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 	[self didUpdateTextLayouts:self.textLayouts];
 }
 
-- (void)didUpdateTextLayouts:(NSArray *)textLayouts
+- (void)didUpdateTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
 {
 	if ([self.delegate respondsToSelector:@selector(textRenderer:didUpdateTextLayouts:)])
 	{
@@ -189,7 +189,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 
 - (CGRect)boundingRectForLayoutsInProposedRect:(CGRect)rect
 {
-	NSArray *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:NULL clippingRects:nil];
+	NSArray<NSValue *> *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:NULL clippingRects:nil];
 	__block CGRect boundingRect = CGRectZero;
 	
 	[layoutRects enumerateObjectsUsingBlock:^(NSValue *value, NSUInteger idx, BOOL *stop) {
@@ -210,7 +210,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 	return boundingRect;
 }
 
-- (NSArray *)layoutRectsForLayoutsInProposedRect:(CGRect)rect withContext:(CGContextRef)context clippingRects:(NSArray **)clippingRects
+- (NSArray<NSValue *> *)layoutRectsForLayoutsInProposedRect:(CGRect)rect withContext:(CGContextRef)context clippingRects:(NSArray<NSValue *> **)clippingRects
 {
 	if (CGRectGetWidth(rect) == CGFLOAT_MAX)
 	{
@@ -228,7 +228,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 		bounds = CGContextGetClipBoundingBox(context);
 	}
 	
-	NSArray *layoutRects = nil;
+	NSArray<NSValue *> *layoutRects = nil;
 	
 	@synchronized(self.textLayouts)
 	{
@@ -322,8 +322,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 {
 	@synchronized(self.textLayouts)
 	{
-		NSArray *clippingRects = nil;
-		NSArray *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:context clippingRects:&clippingRects];
+		NSArray<NSValue *> *clippingRects = nil;
+		NSArray<NSValue *> *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:context clippingRects:&clippingRects];
 	
 		__block CGRect boundingRect = CGRectZero;
 		NSMutableArray *drawnTextLayouts = [NSMutableArray array];

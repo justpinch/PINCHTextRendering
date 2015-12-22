@@ -133,7 +133,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 
 @property (nonatomic, strong, readwrite) NSAttributedString *attributedString;
 @property (atomic, assign, getter = isFramesetterInvalid) BOOL framesetterInvalid;
-@property (nonatomic, copy, readwrite) NSArray *lineRects;
+@property (nonatomic, copy, readwrite) NSArray<NSValue *> *lineRects;
 @property (nonatomic, assign, readwrite) BOOL stringFitsProposedRect;
 @property (nonatomic, assign, readwrite) CGFloat actualScaleFactor;
 @property (nonatomic, strong) NSDataDetector *dataDetector;
@@ -160,12 +160,12 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 	UIColor *_textColor;
 	
 	/// What modified keypaths should invalidate framesetter
-	NSArray *_keyPathsToObserve;
+	NSArray<NSString *> *_keyPathsToObserve;
 }
 
 #pragma mark - Initializing and setters
 
-- (instancetype)initWithString:(NSString *)string attributes:(NSDictionary *)attributes name:(NSString *)name
+- (instancetype)initWithString:(NSString *)string attributes:(NSDictionary<NSString *, id> *)attributes name:(NSString *)name
 {
 	if (!string)
 	{
