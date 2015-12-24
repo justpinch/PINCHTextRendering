@@ -165,7 +165,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 
 #pragma mark - Initializing and setters
 
-- (instancetype)initWithString:(NSString *)string attributes:(NSDictionary<NSString *, id> *)attributes name:(NSString *)name
+- (instancetype)initWithString:(NSString *)string attributes:(NSDictionary *)attributes name:(NSString *)name
 {
 	if (!string)
 	{
