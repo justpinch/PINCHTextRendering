@@ -19,7 +19,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 @interface PINCHTextLayout ()
 
 /// Making lineRects accessibly by textRenderer
-@property (nonatomic, copy, readwrite) NSArray<NSValue *> *lineRects;
+@property (nonatomic, copy, readwrite) NSArray *lineRects;
 /// Making stringFitsProposedRect accessibly by textRenderer
 @property (nonatomic, assign, readwrite) BOOL stringFitsProposedRect;
 
@@ -83,11 +83,12 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 	}
 }
 
-- (void)setTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
+- (void)setTextLayouts:(NSArray *)textLayouts
 {
 	@synchronized(self.textLayouts)
 	{
-		[_textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *textLayout, NSUInteger idx, BOOL *stop) {
+		[_textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			PINCHTextLayout *textLayout = obj;
 			if (textLayout.textRenderer == self)
 			{
 				// If the textLayout is still reporting to this renderer, the textRenderer property can be nilled
@@ -96,7 +97,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 			}
 		}];
 		[_textLayouts removeAllObjects];
-		[textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *textLayout, NSUInteger idx, BOOL *stop) {
+		[textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			PINCHTextLayout *textLayout = obj;
 			[self addTextLayout:textLayout notifyDelegate:NO];
 		}];
 	}
@@ -104,7 +106,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 	[self didUpdateTextLayouts:self.textLayouts];
 }
 
-- (void)didUpdateTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
+- (void)didUpdateTextLayouts:(NSArray *)textLayouts
 {
 	if ([self.delegate respondsToSelector:@selector(textRenderer:didUpdateTextLayouts:)])
 	{
@@ -120,7 +122,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 	
 	@synchronized(self.textLayouts)
 	{
-		[self.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *textLayout, NSUInteger idx, BOOL *stop) {
+		[self.textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			PINCHTextLayout *textLayout = obj;
 			if ([name isEqualToString:textLayout.name])
 			{
 				foundTextLayout = textLayout;
@@ -174,7 +177,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 
 - (void)invalidateLayoutCachesFromIndex:(NSUInteger)index
 {
-	[_textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *textLayout, NSUInteger idx, BOOL *stop) {
+	[_textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		PINCHTextLayout *textLayout = obj;
 		if (idx >= index)
 		{
 			@synchronized(textLayout)
@@ -189,10 +193,11 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 
 - (CGRect)boundingRectForLayoutsInProposedRect:(CGRect)rect
 {
-	NSArray<NSValue *> *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:NULL clippingRects:nil];
+	NSArray *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:NULL clippingRects:nil];
 	__block CGRect boundingRect = CGRectZero;
 	
-	[layoutRects enumerateObjectsUsingBlock:^(NSValue *value, NSUInteger idx, BOOL *stop) {
+	[layoutRects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		NSValue *value = obj;
 		CGRect rect = [value CGRectValue];
 		if (!CGRectIsEmpty(rect))
 		{
@@ -210,7 +215,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 	return boundingRect;
 }
 
-- (NSArray<NSValue *> *)layoutRectsForLayoutsInProposedRect:(CGRect)rect withContext:(CGContextRef)context clippingRects:(NSArray<NSValue *> **)clippingRects
+- (NSArray *)layoutRectsForLayoutsInProposedRect:(CGRect)rect withContext:(CGContextRef)context clippingRects:(NSArray **)clippingRects
 {
 	if (CGRectGetWidth(rect) == CGFLOAT_MAX)
 	{
@@ -228,7 +233,7 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 		bounds = CGContextGetClipBoundingBox(context);
 	}
 	
-	NSArray<NSValue *> *layoutRects = nil;
+	NSArray *layoutRects = nil;
 	
 	@synchronized(self.textLayouts)
 	{
@@ -247,7 +252,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 			__block CGRect layoutBounds = CGRectZero;
 			
 			// Calculate the rects, inform the delegates
-			[self.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *textLayout, NSUInteger index, BOOL *stop) {
+			[self.textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+				PINCHTextLayout *textLayout = obj;
 				
 				@synchronized(textLayout)
 				{
@@ -287,7 +293,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 			{
 				// Move all rects to the bottom
 				NSMutableArray *newRects = [NSMutableArray arrayWithCapacity:[textRects count]];
-				[textRects enumerateObjectsUsingBlock:^(NSValue *value, NSUInteger idx, BOOL *stop) {
+				[textRects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+					NSValue *value = obj;
 					CGRect textLayoutRect = [value CGRectValue];
 					textLayoutRect.origin.y += CGRectGetMaxY(rect) - CGRectGetMaxY(layoutBounds);
 					NSValue *newValue = [NSValue valueWithCGRect:textLayoutRect];
@@ -322,8 +329,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 {
 	@synchronized(self.textLayouts)
 	{
-		NSArray<NSValue *> *clippingRects = nil;
-		NSArray<NSValue *> *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:context clippingRects:&clippingRects];
+		NSArray *clippingRects = nil;
+		NSArray *layoutRects = [self layoutRectsForLayoutsInProposedRect:rect withContext:context clippingRects:&clippingRects];
 	
 		__block CGRect boundingRect = CGRectZero;
 		NSMutableArray *drawnTextLayouts = [NSMutableArray array];
@@ -331,8 +338,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 		if ([self.delegate respondsToSelector:@selector(textRenderer:willRenderTextLayouts:inBoundingRect:withContext:)])
 		{
 			// Delegate wants to now when all textLayouts will be rendered
-			[self.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *textLayout, NSUInteger index, BOOL *stop) {
-				
+			[self.textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+				PINCHTextLayout *textLayout = obj;
 				CGRect textRect = [layoutRects[index] CGRectValue];
 				CGRect clippingRect = [clippingRects[index] CGRectValue];
 				
@@ -354,8 +361,8 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 		}
 		
 		// Draw the strings
-		[self.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout *textLayout, NSUInteger index, BOOL *stop) {
-			
+		[self.textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+			PINCHTextLayout *textLayout = obj;
 			CGRect textRect = [layoutRects[index] CGRectValue];
 			CGRect clippingRect = [clippingRects[index] CGRectValue];
 			if ([self renderTextLayout:textLayout inContext:context withRect:textRect clippingRect:clippingRect])

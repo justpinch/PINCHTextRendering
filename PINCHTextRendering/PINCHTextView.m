@@ -101,7 +101,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame textLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
+- (id)initWithFrame:(CGRect)frame textLayouts:(NSArray *)textLayouts
 {
 	self = [self initWithFrame:frame];
 	if (self)
@@ -138,7 +138,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 
 #pragma mark - PINCHTextRenderer delegate methods
 
-- (void)textRenderer:(PINCHTextRenderer *)textRenderer didUpdateTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
+- (void)textRenderer:(PINCHTextRenderer *)textRenderer didUpdateTextLayouts:(NSArray *)textLayouts
 {
 	if ([self.delegate respondsToSelector:@selector(textViewDidUpdateLayoutAttributes:)])
 	{
@@ -178,7 +178,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	}
 }
 
-- (BOOL)textRenderer:(PINCHTextRenderer *)textRenderer shouldRenderTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts
+- (BOOL)textRenderer:(PINCHTextRenderer *)textRenderer shouldRenderTextLayouts:(NSArray *)textLayouts
 {
 	PINCHTextWeakObject(self, weakSelf);
 	void(^beginBlock)(void) = ^ {
@@ -208,7 +208,8 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 		CGContextSaveGState(context);
 		{
 			CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:0 alpha:0.5].CGColor);
-			[textLayout.lineRects enumerateObjectsUsingBlock:^(NSValue *rectValue, NSUInteger idx, BOOL *stop) {
+			[textLayout.lineRects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+				NSValue *rectValue = obj;
 				CGRect lineRect = [rectValue CGRectValue];
 				CGContextStrokeRectWithWidth(context, lineRect, lineWidth);
 			}];
@@ -258,8 +259,8 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 {
 	__block PINCHTextLink *foundLink = nil;
 	
-	void(^specificEnumerator)(id obj, NSUInteger idx, BOOL *stop) = ^(PINCHTextLink *link, NSUInteger index, BOOL *stop)
-	{
+	void(^specificEnumerator)(id obj, NSUInteger idx, BOOL *stop) = ^(id obj, NSUInteger index, BOOL *stop) {
+		PINCHTextLink *link = obj;
 		if ([link containsPoint:point])
 		{
 			foundLink = link;
@@ -267,8 +268,8 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 		}
 	};
 	
-	void(^regionEnumerator)(id obj, NSUInteger idx, BOOL *stop) = ^(PINCHTextLink *link, NSUInteger index, BOOL *stop)
-	{
+	void(^regionEnumerator)(id obj, NSUInteger idx, BOOL *stop) = ^(id obj, NSUInteger index, BOOL *stop) {
+		PINCHTextLink *link = obj;
 		if ([link touchRegionContainsPoint:point])
 		{
 			foundLink = link;
@@ -390,7 +391,8 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 		return CGSizeZero;
 	
 	__block NSUInteger characterCount = 0;
-	[self.renderer.textLayouts enumerateObjectsUsingBlock:^(PINCHTextLayout * _Nonnull textLayout, NSUInteger idx, BOOL * _Nonnull stop) {
+	[self.renderer.textLayouts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		PINCHTextLayout *textLayout = obj;
 		characterCount += textLayout.attributedString.length;
 	}];
 	

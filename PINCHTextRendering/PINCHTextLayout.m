@@ -133,7 +133,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 
 @property (nonatomic, strong, readwrite) NSAttributedString *attributedString;
 @property (atomic, assign, getter = isFramesetterInvalid) BOOL framesetterInvalid;
-@property (nonatomic, copy, readwrite) NSArray<NSValue *> *lineRects;
+@property (nonatomic, copy, readwrite) NSArray *lineRects;
 @property (nonatomic, assign, readwrite) BOOL stringFitsProposedRect;
 @property (nonatomic, assign, readwrite) CGFloat actualScaleFactor;
 @property (nonatomic, strong) NSDataDetector *dataDetector;
@@ -292,7 +292,8 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 	// Add observers to invalidate cache when changed
 	_keyPathsToObserve = @[@"maximumNumberOfLines", @"textInsets", @"clippingRectInsets", @"minimumScaleFactor", @"breaksLastLine", @"hyphenated", @"lastLineInset", @"firstLineInset", @"positionsFirstLineHeadIndentRelatively", @"underlined"];
 	
-	[_keyPathsToObserve enumerateObjectsUsingBlock:^(NSString *keyPath, NSUInteger index, BOOL *stop) {
+	[_keyPathsToObserve enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+		NSString *keyPath = obj;
 		[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 	}];
 }
@@ -300,7 +301,8 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 - (void)dealloc
 {
 	// Remove observers
-	[_keyPathsToObserve enumerateObjectsUsingBlock:^(NSString *keyPath, NSUInteger index, BOOL *stop) {
+	[_keyPathsToObserve enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+		NSString *keyPath = obj;
 		[self removeObserver:self forKeyPath:keyPath];
 	}];
 	[self removeFramesetter];
@@ -574,8 +576,8 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 {
 	@synchronized(_attributedString)
 	{
-		[results enumerateObjectsUsingBlock:^(NSTextCheckingResult *result, NSUInteger index, BOOL *stop) {
-			
+		[results enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+			NSTextCheckingResult *result = obj;
 			if ([_attributedString attribute:PINCHTextLayoutURLStringAttribute atIndex:result.range.location longestEffectiveRange:NULL inRange:result.range])
 			{
 				/// Don't apply link when a link is already placed
@@ -656,7 +658,8 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 			}
 		}
 		
-		[foundURLS enumerateObjectsUsingBlock:^(NSDictionary *foundURL, NSUInteger idx, BOOL *stop) {
+		[foundURLS enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			NSDictionary *foundURL = obj;
 			NSString *tag = foundURL[@"Tag"];
 			NSURL *URL = foundURL[@"URL"];
 			NSString *urlName = foundURL[@"URLName"];

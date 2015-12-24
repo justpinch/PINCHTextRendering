@@ -20,7 +20,7 @@
 
 /// You can set all textLayouts at once with this property, usefull for reusing.
 /// This will not call invalidateLayoutCache on the textLayouts added
-@property (nonatomic, copy) NSArray<PINCHTextLayout *> *textLayouts;
+@property (nonatomic, copy) NSArray *textLayouts;
 
 /**
  Adds a textLayout below all other textLayouts
@@ -116,7 +116,7 @@
  @param textRenderer The renderer
  @param textLayouts NSArray of new textLayouts
  */
-- (void)textRenderer:(PINCHTextRenderer *)textRenderer didUpdateTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts;
+- (void)textRenderer:(PINCHTextRenderer *)textRenderer didUpdateTextLayouts:(NSArray *)textLayouts;
 
 /**
  Notifies the delegate that a bounding rect has been calculated for a textLayout.
@@ -138,7 +138,7 @@
  @warning This method will be called from the thread in which the renderTextLayoutsInContext:withRect: is called
  @note Repeatedly returning NO will result in the textRendering not drawing the layouts at all, to prevent an endless loop.
  */
-- (BOOL)textRenderer:(PINCHTextRenderer *)textRenderer shouldRenderTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts;
+- (BOOL)textRenderer:(PINCHTextRenderer *)textRenderer shouldRenderTextLayouts:(NSArray *)textLayouts;
 
 /**
  Notifies the delegate that a PINCHTextLayout instance will render in a rect within a context
@@ -159,7 +159,7 @@
  @warning This method will be called from the thread in which the renderTextLayoutsInContext:withRect: is called
  @note The array of textLayouts may contain less objects than all provided textLayouts, while some might not fit or not be intersecting the provided rect
  */
-- (void)textRenderer:(PINCHTextRenderer *)textRenderer willRenderTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts inBoundingRect:(CGRect)rect withContext:(CGContextRef)context;
+- (void)textRenderer:(PINCHTextRenderer *)textRenderer willRenderTextLayouts:(NSArray *)textLayouts inBoundingRect:(CGRect)rect withContext:(CGContextRef)context;
 
 /**
  Notifies the delegate that a PINCHTextLayout instance has been rendered in a rect within a context
@@ -179,7 +179,7 @@
  @warning This method will be called from the thread in which the renderTextLayoutsInContext:withRect: is called
  @note The array of textLayouts may contain less objects than all provided textLayouts, while some might not fit or not be intersecting the provided rect
  */
-- (void)textRenderer:(PINCHTextRenderer *)textRenderer didRenderTextLayouts:(NSArray<PINCHTextLayout *> *)textLayouts withBoundingRect:(CGRect)rect inContext:(CGContextRef)context;
+- (void)textRenderer:(PINCHTextRenderer *)textRenderer didRenderTextLayouts:(NSArray *)textLayouts withBoundingRect:(CGRect)rect inContext:(CGContextRef)context;
 
 /**
  While rendering, this informs the delegate that a URL has been found in a perticular line.

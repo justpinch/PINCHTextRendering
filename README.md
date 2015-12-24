@@ -56,7 +56,7 @@ The `PINCHTextRenderer` instance will update you with its progress via the `PINC
 
 ## Requirements
 
-PINCHTextRendering works on iOS 6 and above, though iOS 5 support might be possible if all NSAttributedString attributes are replaced by their CoreText counterparts. This didn't seem necessary at the time of creating.
+PINCHTextRendering should work on iOS 6 and above, though iOS 5 support might be possible if all NSAttributedString attributes are replaced by their CoreText counterparts. This didn't seem necessary at the time of creating.
 
 ## Installation
 
