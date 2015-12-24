@@ -155,7 +155,7 @@ typedef void(^PINCHDrawingBlock)(CGRect bounds, CGContextRef context);
 	{
 		CGContextSaveGState(context);
 		{
-			static NSArray<UIColor *> *debugColors = nil;
+			static NSArray *debugColors = nil;
 			static dispatch_once_t onceToken;
 			dispatch_once(&onceToken, ^{
 				debugColors = @[[UIColor redColor],

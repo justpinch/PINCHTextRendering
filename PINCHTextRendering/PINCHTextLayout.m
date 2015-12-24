@@ -160,7 +160,7 @@ NSString *const PINCHTextLayoutTextCheckingResultAttribute = @"PINCHTextChecking
 	UIColor *_textColor;
 	
 	/// What modified keypaths should invalidate framesetter
-	NSArray<NSString *> *_keyPathsToObserve;
+	NSArray *_keyPathsToObserve;
 }
 
 #pragma mark - Initializing and setters
