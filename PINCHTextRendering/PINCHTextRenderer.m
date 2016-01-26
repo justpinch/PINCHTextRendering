@@ -108,9 +108,19 @@ static NSUInteger maximumNumberOfRelayoutAttempts = 5;
 
 - (void)didUpdateTextLayouts:(NSArray *)textLayouts
 {
-	if ([self.delegate respondsToSelector:@selector(textRenderer:didUpdateTextLayouts:)])
+	void(^delegateBlock)(void) = ^(void) {
+		if ([self.delegate respondsToSelector:@selector(textRenderer:didUpdateTextLayouts:)])
+		{
+			[self.delegate textRenderer:self didUpdateTextLayouts:textLayouts];
+		}
+	};
+	if (![NSThread isMainThread])
 	{
-		[self.delegate textRenderer:self didUpdateTextLayouts:textLayouts];
+		dispatch_async(dispatch_get_main_queue(), delegateBlock);
+	}
+	else
+	{
+		delegateBlock();
 	}
 }
 
